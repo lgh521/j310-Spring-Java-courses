@@ -2,7 +2,7 @@ name: Sync Fork
 
 on:
   schedule:
-    - cron: '58 10 * * *'  # Runs daily at midnight UTC
+    - cron: '06 11 * * *'  # Runs daily at midnight UTC
   workflow_dispatch:  # Allows manual trigger
 
 jobs:
@@ -24,6 +24,6 @@ jobs:
         run: |
           git remote add upstream https://github.com/eugenp/tutorials.git
           git fetch upstream
-          git checkout main  # Change if the default branch is different
+          git checkout master  # Change if the default branch is different
           git merge upstream/main --allow-unrelated-histories
-          git push origin main
+          git push origin master
