@@ -2,7 +2,7 @@ name: Sync Fork
 
 on:
   schedule:
-    - cron: '0 0 * * *'  # Runs daily at midnight UTC
+    - cron: '58 10 * * *'  # Runs daily at midnight UTC
   workflow_dispatch:  # Allows manual trigger
 
 jobs:
@@ -15,10 +15,15 @@ jobs:
           token: ${{ secrets.GITHUB_TOKEN }}
           fetch-depth: 0
 
+      - name: Set up Git identity
+        run: |
+          git config --global user.email "github-actions[bot]@users.noreply.github.com"
+          git config --global user.name "github-actions[bot]"
+
       - name: Add Upstream Remote
         run: |
           git remote add upstream https://github.com/eugenp/tutorials.git
           git fetch upstream
-          git checkout main  # Change this to the default branch of the upstream repo
+          git checkout main  # Change if the default branch is different
           git merge upstream/main --allow-unrelated-histories
           git push origin main
